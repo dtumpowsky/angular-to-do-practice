@@ -7,15 +7,36 @@ import { Task } from './models/task.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'To-Do List';
   currentFocus: string = 'Angular Homework';
   currentTime = new Date();
   month: number = this.currentTime.getMonth() + 1;
   day: number = this.currentTime.getDate();
   year: number = this.currentTime.getFullYear();
+  priorityColor(currentTask){
+    if (currentTask.priority === 3){
+      return "bg-danger";
+    } else if (currentTask.priority === 2) {
+      return  "bg-warning";
+    } else {
+      return "bg-info";
+    }
+  }
+
   tasks: Task[] = [
-    new Task('Finish weekend Angular homework for Epicodus course'),
-    new Task('Begin brainstorming possible JavaScript group projects'),
-    new Task('Add README file to last few Angular repos on GitHub')
+    new Task('Finish weekend Angular homework for Epicodus course', 3),
+    new Task('Begin brainstorming possible JavaScript group project', 2),
+    new Task('Add README file to last few Angular repos on Github', 2)
   ];
+
+  selectedTask=null;
+
+  editTask(clickedTask) {
+    this.selectedTask = clickedTask;
+  }
+
+  finishedEditing() {
+    this.selectedTask = null;
+  }
+
 }
